@@ -8,9 +8,13 @@
   <dt>Number of years</dt>
     <dd><%= @num_years %><dd>
   <dt>Principal</dt>
-    <dd><%= @principal %><dd>
+    <dd><%= @principal.to_s(:currency) %><dd>
   <dt>Payment</dt>
-    <dd><%= @xx %><dd>
+    <dd><%= @payment_amount.to_s(:currency) %><dd>
 </dl>
+
+<div>
+  <%= @payment_numerator %>
+</div>
 
 <a href="/payment/new">Calculate another payment</a>

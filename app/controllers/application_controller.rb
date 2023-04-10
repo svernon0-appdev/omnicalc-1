@@ -40,8 +40,15 @@ class ApplicationController < ActionController::Base
 
     @apr = params.fetch("user_apr").to_f
     @apr_clean = params.fetch("user_apr").to_f.round(4)
+    @apr_yearly_perc = @apr/100
+    @apr_monthly_perc = @apr_yearly_perc/12
     @num_years = params.fetch("user_years").to_f
+    @periods = @num_years * 12
     @principal = params.fetch("user_pv").to_f
+    @payment_numerator = @apr_monthly_perc * @principal
+    @payment_discount = (1 + @apr_monthly_perc) ** (@periods * -1)
+    @payment_denominator = 1 - @payment_discount
+    @payment_amount = @payment_numerator / @payment_denominator
 
     render({ :template => "calculation_templates/payment_results.html.erb"})
 
